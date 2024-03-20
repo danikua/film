@@ -9,7 +9,8 @@ import {POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL} from '../config';
 import { BackgroundImg } from "./BackgroundImg";
 import { FilmsGrid } from "./FilmsGrid";
 import { Thumb } from "./Thumb";
-
+import Spinner from "./Spinner";
+import { SearchBar } from "./SearchBar";
 //Hook
 import { useHomeFetch } from "../Hooks/useHomeFetch";
 
@@ -18,7 +19,7 @@ import { useHomeFetch } from "../Hooks/useHomeFetch";
 import noImg from '../images/no_image.jpg';
 
 export const Home = () => {
-  const {state, loading, error} = useHomeFetch();
+  const {state, loading, error, searchTerm, setSearchTerm} = useHomeFetch();
 
   console.log(state);
 
@@ -30,7 +31,8 @@ export const Home = () => {
         title={state.results[0].original_title}
         text={state.results[0].overview} />
       : null}
-      <FilmsGrid header='Popular movies'>
+      <SearchBar setSearchTerm={setSearchTerm}/>
+      <FilmsGrid header={searchTerm ? 'Search Result' : 'Popular movies'}>
         {state.results.map(movie => {
           return <Thumb
           key={movie.id}
@@ -41,6 +43,7 @@ export const Home = () => {
           movieId={movie.id} />
         })}
       </FilmsGrid>
+      <Spinner />
     </main>
   )
 };
