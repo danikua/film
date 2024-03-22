@@ -11,6 +11,7 @@ import { FilmsGrid } from "./FilmsGrid";
 import { Thumb } from "./Thumb";
 import Spinner from "./Spinner";
 import { SearchBar } from "./SearchBar";
+import { Button } from "./Button";
 //Hook
 import { useHomeFetch } from "../Hooks/useHomeFetch";
 
@@ -19,9 +20,11 @@ import { useHomeFetch } from "../Hooks/useHomeFetch";
 import noImg from '../images/no_image.jpg';
 
 export const Home = () => {
-  const {state, loading, error, searchTerm, setSearchTerm} = useHomeFetch();
+  const {state, loading, error, searchTerm, setSearchTerm, setIsLoadingMore} = useHomeFetch();
 
   console.log(state);
+
+  if(error) return <div>Something went wrong...</div>;
 
   return (
     <main>
@@ -43,7 +46,10 @@ export const Home = () => {
           movieId={movie.id} />
         })}
       </FilmsGrid>
-      <Spinner />
+      {loading && <Spinner />}
+      {state.page < state.total_pages && !loading && (
+        <Button text='Load More' callback={() => setIsLoadingMore(true)}/>
+      )}
     </main>
   )
 };
