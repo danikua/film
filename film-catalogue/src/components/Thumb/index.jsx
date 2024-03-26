@@ -10,7 +10,7 @@ export const Thumb = ({image, movieId, clickable}) => {
               <Image src={image} alt='movie-thumb'/>
             </Link>
           ) : (
-           <Image src={image} alt='movie-thumb'/>
+           <Image src={image} alt='movie-thumb'style={{pointerEvents: 'none'}} />
           )}
          </>
 };
