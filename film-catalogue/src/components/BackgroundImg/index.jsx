@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { Wrapper, Content, Text } from "./BackgroundImg.styles";
 
@@ -11,4 +12,10 @@ export const BackgroundImg = ({image, title, text}) => {
               </Text>
             </Content>
           </Wrapper>
+};
+
+BackgroundImg.propTypes = {
+  image: PropTypes.string,
+  title: PropTypes.string,
+  text: PropTypes.string,
 };
